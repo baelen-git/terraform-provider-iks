@@ -51,10 +51,7 @@ module "iks_version" {
 }
 module "iks_addons" {
   source = "../modules/common/addons"
-  for_each = {for addon in var.addons: addon.name => addon}
   org_name = var.organization
-  addon_definition_name = each.value.name
-  addon_name = each.value.name
-  addon_upgrade_strategy = each.value.upgrade_strategy
-  addon_policy_name = var.addons[2].policy_name
+  addon_list = var.addon_list
+  addon_policy_name = var.addon_policy_name
 }

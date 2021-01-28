@@ -66,14 +66,14 @@ variable "k8s_version" {
         version = string
     }))
 }
-variable "addons" {
+variable "addon_list" {
   type = list(object({
     name = string,
     upgrade_strategy = string,
     policy_name = string
   }))
 }
-# variable "addon_policy_name_" {
-#   type = string
-#   description = "Addon Policy Name"
-# }
+variable "addon_policy_name" {
+  type = string
+  description = "Addon Policy Name"
+}
