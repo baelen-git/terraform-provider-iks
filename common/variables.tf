@@ -60,7 +60,7 @@ variable "ip_pool" {
     }))
 
 }
-variable "k8s_version" {
+variable "k8s_version_list" {
     type = list(object({
         name = string,
         version = string

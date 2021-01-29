@@ -4,15 +4,25 @@ data "intersight_organization_organization" "organization" {
 }
 #Importing the Kubernetes Version available
 data "intersight_kubernetes_version" "version" {
-    kubernetes_version = var.k8s_version
+    for_each = {for version in var.k8s_version_list: version.version => version}   
+    kubernetes_version = each.value.version
 }
-
 resource "intersight_kubernetes_version_policy" "iks_version" {
-    name = var.k8s_version_policy_name
-    nr_version {
-        object_type =  "kubernetes.Version"
-        moid = data.intersight_kubernetes_version.version.id
+    
+    for_each = {for version in var.k8s_version_list: version.version => version}
+    name = each.value.name
+    dynamic "nr_version" {
+        for_each = data.intersight_kubernetes_version.version
+        content {
+            object_type =  "kubernetes.Version"
+            moid = data.intersight_kubernetes_version.version[each.value.version].moid
+        }
     }
+    
+    # nr_version {
+    #     object_type =  "kubernetes.Version"
+    #     moid = data.intersight_kubernetes_version.version.id
+    # }
 
     tags { 
         key = "Managed_By"
