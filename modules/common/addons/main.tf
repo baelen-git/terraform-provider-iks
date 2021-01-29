@@ -2,12 +2,10 @@
 data "intersight_organization_organization" "organization" {
     name = var.org_name
 }
-
 data "intersight_kubernetes_addon_definition" "addon_def" {
     for_each  = {for addon in var.addon_list: addon.name => addon}
     name = each.value.name
 }
-
 resource "intersight_kubernetes_addon" "addon" {
     for_each = {for addon in var.addon_list: addon.name => addon}
     name = each.value.name
@@ -24,7 +22,6 @@ resource "intersight_kubernetes_addon" "addon" {
         moid = data.intersight_organization_organization.organization.moid
     }     
 }
-
 resource "intersight_kubernetes_addon_policy" "addon_policy" {
     name = var.addon_policy_name
     dynamic "addons" {

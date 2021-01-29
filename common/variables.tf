@@ -60,7 +60,7 @@ variable "ip_pool" {
     }))
 
 }
-variable "k8s_version" {
+variable "k8s_version_list" {
     type = list(object({
         name = string,
         version = string
@@ -76,4 +76,19 @@ variable "addon_list" {
 variable "addon_policy_name" {
   type = string
   description = "Addon Policy Name"
+}
+
+variable "infra_list" {
+    # sensitive = true
+    type = list(object({
+        name = string
+        instance_type = string
+        infra_provider_fqdn = string
+        cluster = string
+        interfaces = list(string)
+        datastore = string
+        passphrase = string
+        resource_pool = string
+
+    }))
 }
