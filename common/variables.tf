@@ -77,3 +77,18 @@ variable "addon_policy_name" {
   type = string
   description = "Addon Policy Name"
 }
+
+variable "infra_list" {
+    # sensitive = true
+    type = list(object({
+        name = string
+        instance_type = string
+        infra_provider_fqdn = string
+        cluster = string
+        interfaces = list(string)
+        datastore = string
+        passphrase = string
+        resource_pool = string
+
+    }))
+}

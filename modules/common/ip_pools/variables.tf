@@ -1,7 +1,6 @@
 variable "org_name" {
     type = string
     description = "Intersight Organization name"
-    default = "default"
 }
 variable "ip_pool_name" {
     type = string

@@ -42,7 +42,7 @@ module "network_ip_pool" {
   ip_pool_dns2 = var.local_dns[1]
 }
 module "iks_version" {
-  source = "../modules/common/cluster"
+  source = "../modules/common/version"
   org_name = var.organization
   k8s_version_list = var.k8s_version_list
   # for_each = {for version in var.k8s_version: version.name => version}
@@ -55,4 +55,10 @@ module "iks_addons" {
   org_name = var.organization
   addon_list = var.addon_list
   addon_policy_name = var.addon_policy_name
+}
+module "infra_provider" {
+  source = "../modules/common/infra"
+  depends_on = [module.worker_instance_type]
+  org_name = var.organization
+  infra_list = var.infra_list
 }
